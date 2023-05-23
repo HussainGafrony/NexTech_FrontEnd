@@ -1,48 +1,78 @@
 <template>
-  <Header_page />
-  <v-row class="mt-12">
-    <v-card width="12%" class="ml-16" elevation="0">
-      <v-img src="../assets/logo.svg" class="ml-5"> </v-img>
-    </v-card>
-    <v-card-title class="ml-12 click" @click="expand2 = !expand2">Category </v-card-title>
+  <Header_ />
 
-    <v-card-title class="ml-12">Deals </v-card-title>
 
-    <v-card-title class="ml-12">What’s New </v-card-title>
-    <v-card-title class="ml-12">Delivery </v-card-title>
-    <v-card width="22%" elevation="0" class="ml-16 rounded-pill p" height="45">
-      <v-text-field v-model="Products.Search" label="Search Product" hide-details="" color="black" outlined class="mt-1 font-weight-bold text-xl" rounded single-line append-icon="mdi-search-web"></v-text-field>
-    </v-card>
-    <v-row align-content="center" class="ml-16">
-      <v-icon x-large icon="mdi-account-circle-outline"> </v-icon>
+  <v-row class="mt-8" align="center" justify="end">
+    <v-img src="../assets/logo.svg" class="ml-16 pl-16" height="50"> </v-img>
+    <v-card-title class="click" @click="expand2 = !expand2">Category </v-card-title>
 
-      <v-card-title>Account</v-card-title>
-      <v-icon x-large class="pl-15" icon="mdi-cart-outline"> </v-icon>
+    <v-card-title>Deals </v-card-title>
+
+    <v-card-title>What’s New </v-card-title>
+    <v-card-title>Delivery </v-card-title>
+    <v-text-field v-model="Products.Search" placeholder="Search Product" class="font-weight-bold text-xl ml-8"
+      rounded="pill" hide-details single-line append-inner-icon="mdi-search-web"></v-text-field>
+    <v-row align-content="center" align="center" class="ml-16">
+      <v-icon size="x-large" icon="mdi-account-circle-outline"> </v-icon>
 
       <v-card-title>Account</v-card-title>
+      <v-icon size="x-large" class="pl-15 mr-3" icon="mdi-cart-outline"> </v-icon>
+
+      <v-card-title>Cart</v-card-title>
     </v-row>
-  </v-row>
-  <v-img src="../assets/home.png" class="mt-8">
-    <v-expand-x-transition>
-      <v-card v-show="expand2" height="100" width="100" class="mx-auto secondary"></v-card>
-    </v-expand-x-transition>
-  </v-img>
+    <v-img src="../assets/home.png" class="mt-8">
+      <v-expand-x-transition>
+        <v-col cols="5" class="mt-0 pt-1" offset="3">
+          <v-card v-show="expand2">
+            <v-row class="mt-2 mb-2">
+              <v-card elevation="2" width="350" class=" ml-16 mb-6 mt-4 " v-for="item in Categories.Items" :key="item"
+                @click="() => console.log('card_category')">
+                <v-row align="start" align-content="start" justify="start">
+                  <v-col cols="4">
+                    <v-img :src="item.image" height="100"></v-img>
+                  </v-col>
+                  <v-col class="mt-4 pa-0 ma-0 my-0 py-0">
+                    <v-card-title class="pa-0 ma-0 my-0 py-0">
+                      {{ item.name }}
+                    </v-card-title>
+                    <v-card-subtitle class="pa-0 ma-0 my-0 py-0 text-lowercase  d-inline-block text-truncate"
+                      style="max-width: 150px;">
+                      {{ item.description }} </v-card-subtitle>
+                  </v-col>
+                </v-row>
 
+
+              </v-card>
+            </v-row>
+
+
+          </v-card>
+
+        </v-col>
+
+      </v-expand-x-transition>
+    </v-img>
+
+  </v-row>
   <v-col class="ml-16 pl-16">
     <v-col class="ml-16 pl-16">
       <v-card-title class="ml-16 mt-7 text-h4 font-weight-bold"> Shop Our Top Categories </v-card-title>
       <v-row class="ml-9">
-        <v-card width="10%" v-for="(image, index) in Images" :key="index" color="#F3F5F7" class="rounded-lg ml-13 mb-6 mt-9" elevation="0">
+        <v-card width="10%" v-for="(image, index) in Images" :key="index" color="#F3F5F7"
+          class="click rounded-lg ml-13 mt-9 " elevation="0">
           <v-img :src="image" :class="{ 'zoomed-image': zoomed }" @mouseover="zoomIn" @mouseleave="zoomOut">
-            <v-card-subtitle class="font-weight-bold white--text text-h5">{{ imageTitle[index] }}</v-card-subtitle>
+            <v-card-title class=" font-weight-bold white--text mt-4 ml-11">{{
+              imageTitle[index]
+            }}</v-card-title>
           </v-img>
         </v-card>
       </v-row>
-      <v-card-title class="ml-16 mt-7 text-h4 font-weight-bold"> Todays Best Deals For You! </v-card-title>
+      <v-card-title class="ml-16 mt-10 text-h4 font-weight-bold"> Todays Best Deals For You! </v-card-title>
 
       <v-container fluid style="width: 80%" class="ml-16 mt-7">
         <v-row justify="start">
-          <v-card width="20%" elevation="0" class="ml-8 rounded-lg mb-16" height="40vh" color="#F3F5F7" v-for="(item, index) in Products.Items" :key="index">
+          <v-card width="20%" elevation="0" class="ml-8 rounded-lg mb-16" height="43vh" color="#F3F5F7"
+            v-for="(item, index) in Products.Items" :key="index">
             <v-col align="end" class="pt-2 mb-0">
               <v-avatar color="white" size="56" class="mb-0 pb-0">
                 <v-icon x-large color="black" icon="mdi-heart-outline"></v-icon>
@@ -55,8 +85,7 @@
               <v-card-actions class="mt-0 mb-0">
                 <v-card-title class="text-h6 font-weight-bold pb-0 mb-0 pl-0 ml-0"> {{ item.name }} </v-card-title>
                 <v-spacer></v-spacer>
-                <v-card-title class="pr-0 pb-0 mb-0"
-                  >$
+                <v-card-title class="pr-0 pb-0 mb-0">$
                   {{ item.price }}
                 </v-card-title>
               </v-card-actions>
@@ -65,12 +94,16 @@
                   {{ item.description }}
                 </v-card-subtitle>
               </v-col>
+
+            </v-col>
+            <v-col align="start">
               <v-btn class="hover-color ml-1" color="" rounded large outlined> Add to cart </v-btn>
             </v-col>
           </v-card>
+
         </v-row>
       </v-container>
-      <v-divider class="mt-8 ml-16 grey" style="width: 37cm"> </v-divider>
+      <v-divider class=" ml-16 grey" style="width: 37cm"> </v-divider>
     </v-col>
   </v-col>
 </template>
@@ -133,8 +166,8 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.GetProducts();
+    this.GetCategory();
   },
   // setup() {
   //   onMounted(() => {
@@ -147,6 +180,7 @@ export default {
 .click {
   cursor: pointer;
 }
+
 .zoomed-image {
   transform: scale(1);
   transition: transform 0.3s;
@@ -155,6 +189,7 @@ export default {
 .zoomed-image:hover {
   transform: scale(1.2);
 }
+
 .hover-color:hover {
   background-color: #003d29;
 }
